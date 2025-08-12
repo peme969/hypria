@@ -44,3 +44,9 @@ video {
     background-repeat: no-repeat;
     background-position: center;
 }
+box {
+    display: block;
+}
+text {
+    display: block;
+}
