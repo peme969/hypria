@@ -24,10 +24,68 @@
             />
             Your browser does not support the video tag.
         </video>
+        <!-- haha i like custom tags-->
+        <box>
+            <text>Hoi!</text>
+        </box>
         <button class="bottom-button" onclick="switchWall()">
             <span></span>
         </button>
+
         <script>
+            // these have comments because of the tutorial of the OG interactJS library docs!
+            interact(".draggable").draggable({
+                // enable inertial throwing
+                inertia: true,
+                // keep the element within the area of it's parent
+                modifiers: [
+                    interact.modifiers.restrictRect({
+                        restriction: "parent",
+                        endOnly: true,
+                    }),
+                ],
+                // enable autoScroll
+                autoScroll: true,
+
+                listeners: {
+                    // call this function on every dragmove event
+                    move: dragMoveListener,
+
+                    // call this function on every dragend event
+                    end(event) {
+                        var textEl = event.target.querySelector("p");
+
+                        textEl &&
+                            (textEl.textContent =
+                                "moved a distance of " +
+                                Math.sqrt(
+                                    (Math.pow(event.pageX - event.x0, 2) +
+                                        Math.pow(event.pageY - event.y0, 2)) |
+                                        0,
+                                ).toFixed(2) +
+                                "px");
+                    },
+                },
+            });
+
+            function dragMoveListener(event) {
+                var target = event.target;
+                // keep the dragged position in the data-x/data-y attributes
+                var x =
+                    (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+                var y =
+                    (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+
+                // translate the element
+                target.style.transform = "translate(" + x + "px, " + y + "px)";
+
+                // update the posiion attributes
+                target.setAttribute("data-x", x);
+                target.setAttribute("data-y", y);
+            }
+
+            // this function is used later in the resizing and gesture demos
+            window.dragMoveListener = dragMoveListener;
             var walls = [
                 "https://cdn.donmai.us/original/be/d0/__original_drawn_by_hisachan55cute__bed01509fe09fdaabe37b5df707fcacc.mp4",
                 "https://cdn.donmai.us/original/c3/43/__original_drawn_by_hisachan55cute__c3435fc2481d6434c8b24415fd12e87b.mp4",
