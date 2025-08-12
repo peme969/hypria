@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body style="overflow: hidden">
-        <video autoplay muted loop playsinline>
+        <video id="bg-video" autoplay muted loop playsinline>
             >
             <source
                 src="https://cdn.donmai.us/original/f4/81/__original_drawn_by_gutty_kreum__f48116d976a2a52132d3c5ab6b759640.mp4"
@@ -57,9 +57,9 @@
                 "https://cdn.donmai.us/original/f4/81/__original_drawn_by_gutty_kreum__f48116d976a2a52132d3c5ab6b759640.mp4",
             ];
             function switchWall() {
-                let index = Math.floor(Math.random() * videos.length);
-                document.getElementById("video").src = videos[index];
-                document.getElementById("video").load();
+                let index = Math.floor(Math.random() * walls.length);
+                document.getElementById("bg-video").src = walls[index];
+                document.getElementById("bg-video").load();
             }
         </script>
     </body>
