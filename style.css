@@ -23,3 +23,26 @@ video {
     object-fit: cover;
     z-index: -9999;
 }
+<style>
+    .bottom-button {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .bottom-button span {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-image: url('/assets/circle-right.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(3%) hue-rotate(32deg) brightness(94%) contrast(86%);
+    }
+</style>
