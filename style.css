@@ -38,7 +38,7 @@ video {
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url("/assets/circle-right.png");
+    background-image: url("/assets/circle-right.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
