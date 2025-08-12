@@ -24,6 +24,32 @@
             />
             Your browser does not support the video tag.
         </video>
-        <button onclick="switchWall()"><span id="forward-icon"></span></button>
+        <button
+            onclick="switchWall()"
+            style="
+                display: block;
+                border: 1px solid grey;
+                padding: 0px;
+                background-color: #454544;
+                position: absolute;
+                bottom: 40px;
+                right: 20px;
+                border-radius: 8px;
+            "
+        >
+            <span
+                id="forward-icon"
+                style="
+                    background-image: url(assets/circle-right.svg);
+                    background-size: cover;
+                    height: 20px;
+                    background-color: #454544;
+                    width: 20px;
+                    display: block;
+                    border: 0px none;
+                    padding: 0px;
+                "
+            ></span>
+        </button>
     </body>
 </html>
