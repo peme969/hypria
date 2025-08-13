@@ -55,6 +55,7 @@ video {
     user-select: none;
     touch-action: none;
 }
+
 .boxes {
     display: block;
     background:
