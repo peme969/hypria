@@ -27,7 +27,132 @@
         </video>
         <!-- haha i like custom tags-->
         <box class="draggable boxes">
-            <text style="display: block">Hoi!</text>
+            <div class="row space">
+                <div>
+                    <div class="title" id="place">Loading…</div>
+                    <div class="subtitle" id="subtitle">—</div>
+                </div>
+                <div class="tiny subtitle">
+                    Powered by
+                    <a
+                        href="https://www.weatherapi.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                        >WeatherAPI</a
+                    >
+                    ·
+                    <a
+                        href="https://wttr.in/:help"
+                        target="_blank"
+                        rel="noreferrer"
+                        >wttr.in</a
+                    >
+                </div>
+            </div>
+            <div class="current">
+                <div class="tempRow">
+                    <img id="condIcon" class="condIcon" alt="condition icon" />
+                    <div class="temp" id="temp">--°</div>
+                    <div class="unit-pill" id="unitToggle" aria-label="Units">
+                        <button data-unit="F" class="active">F</button>
+                        <button data-unit="C">C</button>
+                    </div>
+                </div>
+                <div class="hiLo">
+                    <span>High <span id="hi">--</span>°</span
+                    ><span class="dot">•</span>
+                    <span>Low <span id="lo">--</span>°</span>
+                </div>
+                <div class="subtitle condLine" id="cond">—</div>
+                <div class="chipsRow">
+                    <div class="chipTile">
+                        <img
+                            src="https://img.icons8.com/fluency/48/sunrise.png"
+                            alt=""
+                        /><span id="sunrise">--:--</span>
+                    </div>
+                    <div class="chipTile">
+                        <img
+                            src="https://img.icons8.com/fluency/48/sunset.png"
+                            alt=""
+                        /><span id="sunset">--:--</span>
+                    </div>
+                    <div class="chipTile" id="aqiChip" title="">
+                        <span id="aqiShort">AQI —</span>
+                    </div>
+                </div>
+                <div class="micro tiny" id="microStats">
+                    Humidity —% • Precip —% • —
+                </div>
+            </div>
+
+            <!-- ALERTS -->
+            <div class="alert" id="alert" hidden>
+                <div class="alertTop">
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                    >
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="var(--red)"
+                            stroke-width="2"
+                        />
+                        <rect
+                            x="11"
+                            y="10"
+                            width="2"
+                            height="7"
+                            fill="var(--red)"
+                        />
+                        <rect
+                            x="11"
+                            y="6.5"
+                            width="2"
+                            height="2"
+                            fill="var(--red)"
+                        />
+                    </svg>
+                    <span>Extreme weather advisory</span>
+                    <span class="sep"></span>
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                    >
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="9"
+                            stroke="var(--red)"
+                            stroke-width="2"
+                        />
+                        <path
+                            d="M12 7v5l3 2"
+                            stroke="var(--red)"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                    <span id="alertAgo">—</span>
+                    <span class="sep"></span>
+                    <span id="alertWhen" style="color: #ff9b9c"></span>
+                </div>
+                <div class="alertSub">
+                    <b id="alertEvent">—</b> <span class="dot">•</span>
+                    <span id="alertSender">—</span>
+                </div>
+                <div class="alertDesc clamp2" id="alertDesc"></div>
+            </div>
+            <div class="forecast" id="forecast"></div>
         </box>
         <button class="bottom-button" onclick="switchWall()">
             <span></span>
@@ -87,6 +212,7 @@
 
             // this function is used later in the resizing and gesture demos
             window.dragMoveListener = dragMoveListener;
+
             var walls = [
                 "https://cdn.donmai.us/original/be/d0/__original_drawn_by_hisachan55cute__bed01509fe09fdaabe37b5df707fcacc.mp4",
                 "https://cdn.donmai.us/original/c3/43/__original_drawn_by_hisachan55cute__c3435fc2481d6434c8b24415fd12e87b.mp4",
@@ -120,6 +246,206 @@
                 document.getElementById("bg-video").src = walls[index];
                 document.getElementById("bg-video").load();
             }
+        </script>
+        <script>
+            (async () => {
+                const RAW_Q = prompt(
+                    "Enter your location (city, long/lat, state",
+                );
+                const Q = encodeURIComponent(RAW_Q);
+                const state = { unit: "F", data: null };
+                const WIND_ICON_BASE = "./";
+                function getWindIcon(speed, isF) {
+                    const mph = isF ? Number(speed) : Number(speed) / 1.60934;
+                    if (mph < 3) return "icons8-wind-speed-1-2-50.png";
+                    if (mph < 8) return "icons8-wind-speed-3-7-50.png";
+                    if (mph < 13) return "icons8-wind-speed-8-12-50.png";
+                    if (mph < 18) return "icons8-wind-speed-13-17-50.png";
+                    return "icons8-wind-speed-18-22-50.png";
+                }
+                function aqiInfo(idx) {
+                    const label =
+                        {
+                            1: "Good",
+                            2: "Moderate",
+                            3: "Unhealthy for Sensitive Groups",
+                            4: "Unhealthy",
+                            5: "Very Unhealthy",
+                            6: "Hazardous",
+                        }[Number(idx)] || "—";
+                    const desc =
+                        {
+                            1: "Air quality is satisfactory; little or no risk.",
+                            2: "Acceptable; a few unusually sensitive people may be affected.",
+                            3: "Sensitive groups may experience effects; general public less likely.",
+                            4: "Everyone may begin to feel effects; sensitive groups more serious.",
+                            5: "Health warnings of emergency conditions possible.",
+                            6: "Health alert: serious health effects for everyone.",
+                        }[Number(idx)] || "";
+                    return { label, desc };
+                }
+                function timeAgo(iso) {
+                    if (!iso) return "—";
+                    const t = Date.parse(iso);
+                    if (Number.isNaN(t)) return "—";
+                    const diff = Math.max(0, Date.now() - t);
+                    const sec = Math.floor(diff / 1000),
+                        min = Math.floor(sec / 60),
+                        hr = Math.floor(min / 60),
+                        day = Math.floor(hr / 24);
+                    if (day >= 1) return `${day} day${day > 1 ? "s" : ""} ago`;
+                    if (hr >= 1) return `${hr} hour${hr > 1 ? "s" : ""} ago`;
+                    if (min >= 1)
+                        return `${min} minute${min > 1 ? "s" : ""} ago`;
+                    return `${sec} sec ago`;
+                }
+                const fmtTime = (s) => {
+                    const t = Date.parse(s);
+                    return Number.isNaN(t)
+                        ? "—"
+                        : new Date(t).toLocaleString([], {
+                              weekday: "short",
+                              month: "short",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                          });
+                };
+                const dayName = (d) =>
+                    new Date(d).toLocaleDateString([], { weekday: "short" });
+                async function load() {
+                    const res = await fetch(
+                        `https://api.peme969.dev/weather?q=${Q}`,
+                    );
+                    if (!res.ok) throw new Error(`WeatherAPI ${res.status}`);
+                    state.data = await res.json();
+                    try {
+                        const wt = await fetch(
+                            `https://wttr.in/${RAW_Q}?format=j1`,
+                            {
+                                mode: "cors",
+                            },
+                        );
+                        if (wt.ok) {
+                            const j = await wt.json();
+                            const a = j?.weather?.[0]?.astronomy?.[0] || {};
+                            setTxt("sunrise", a.sunrise);
+                            setTxt("sunset", a.sunset);
+                        }
+                    } catch (_) {}
+                    render();
+                }
+                function setTxt(id, v) {
+                    document.getElementById(id).textContent = v || "--:--";
+                }
+                function render() {
+                    const d = state.data,
+                        isF = state.unit === "F";
+                    document.getElementById("place").textContent =
+                        `${d.location.name}, ${d.location.region || d.location.country}`;
+                    document.getElementById("subtitle").textContent =
+                        `${d.current.condition.text} • ${fmtTime(d.location.localtime)}`;
+                    const cur = d.current,
+                        today = d.forecast.forecastday[0].day;
+                    document.getElementById("cond").textContent =
+                        cur.condition.text || "";
+                    document.getElementById("condIcon").src =
+                        `https:${cur.condition.icon ?? ""}`;
+                    document.getElementById("temp").textContent =
+                        `${Math.round(isF ? cur.temp_f : cur.temp_c)}°`;
+
+                    setTxt(
+                        "hi",
+                        Math.round(isF ? today.maxtemp_f : today.maxtemp_c),
+                    );
+                    setTxt(
+                        "lo",
+                        Math.round(isF ? today.mintemp_f : today.mintemp_c),
+                    );
+                    const aqiIdx = cur.air_quality?.["us-epa-index"];
+                    const { label, desc } = aqiInfo(aqiIdx);
+                    document.getElementById("aqiShort").textContent =
+                        `AQI ${aqiIdx ?? "—"} ${label}`;
+                    document.getElementById("aqiChip").title = desc;
+                    const hum = `${cur.humidity ?? "—"}%`;
+                    const pr = `${today.daily_chance_of_rain ?? 0}%`;
+                    const windSpeed = isF ? cur.wind_mph : cur.wind_kph;
+                    const windUnit = isF ? "mph" : "kph";
+                    const windIcon =
+                        WIND_ICON_BASE + getWindIcon(windSpeed ?? 0, isF);
+                    document.getElementById("microStats").innerHTML =
+                        `Humidity ${hum} • Precip ${pr} • ` +
+                        `<img class="wind-ico" src="${windIcon}" alt="wind"> ` +
+                        `${(windSpeed ?? 0).toFixed(1)} ${windUnit} ${cur.wind_dir ?? ""}`;
+                    const alerts = d.alerts?.alert ?? [];
+                    const bar = document.getElementById("alert");
+                    if (alerts.length) {
+                        const a = alerts[0];
+                        const stamp =
+                            a.effective ||
+                            a.expires ||
+                            d.location.localtime ||
+                            "";
+                        setTxt("alertEvent", a.event || "Weather alert");
+                        setTxt("alertSender", a.sender_name || a.areas || "");
+                        setTxt("alertDesc", a.desc || a.headline || "");
+                        setTxt("alertWhen", fmtTime(stamp));
+                        setTxt("alertAgo", timeAgo(stamp));
+                        bar.hidden = false;
+                    } else {
+                        bar.hidden = true;
+                    }
+                    const wrap = document.getElementById("forecast");
+                    wrap.innerHTML = d.forecast.forecastday
+                        .map((fd) => {
+                            const hi = Math.round(
+                                isF ? fd.day.maxtemp_f : fd.day.maxtemp_c,
+                            );
+                            const lo = Math.round(
+                                isF ? fd.day.mintemp_f : fd.day.mintemp_c,
+                            );
+                            const windMax = Math.round(
+                                isF ? fd.day.maxwind_mph : fd.day.maxwind_kph,
+                            );
+                            const windUnit = isF ? "mph" : "kph";
+                            return `<div class="day">
+              <img src="https:${fd.day.condition.icon}" width="40" height="40" alt="${fd.day.condition.text}">
+              <div>
+                <div class="name">${dayName(fd.date)}</div>
+                <div class="subtitle" style="font-size:.85rem">${fd.day.condition.text}</div>
+                <div>High ${hi}° • Low ${lo}°</div>
+                <div class="subtitle" style="font-size:.8rem">Rain ${fd.day.daily_chance_of_rain ?? 0}% • Wind ${windMax} ${windUnit}</div>
+              </div>
+            </div>`;
+                        })
+                        .join("");
+                }
+                const toggle = document.getElementById("unitToggle");
+                toggle.addEventListener("click", (e) => {
+                    const btn = e.target.closest("button");
+                    if (!btn) return;
+                    const unit = btn.dataset.unit;
+                    if (unit && unit !== state.unit) {
+                        state.unit = unit;
+                        [...toggle.querySelectorAll("button")].forEach((b) =>
+                            b.classList.toggle(
+                                "active",
+                                b.dataset.unit === unit,
+                            ),
+                        );
+                        if (state.data) render();
+                    }
+                });
+                try {
+                    await load();
+                } catch (err) {
+                    document.getElementById("card").innerHTML =
+                        `<div style="display:flex;align-items:center;justify-content:center;height:100%">
+            <div><div style="font-weight:700;margin-bottom:6px">Couldn’t load weather</div>
+            <div style="color:#9aa3b2">${String(err.message || err)}</div></div></div>`;
+                    console.error(err);
+                }
+            })();
         </script>
     </body>
 </html>
