@@ -22,31 +22,36 @@ video {
     height: 100%;
     object-fit: cover;
     z-index: -9999;
+    pointer-events: none;
 }
 .bottom-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #454544;
-    transform: translateX(-50%);
+    background: #454544;
     border: 1px solid #8b8484;
+    border-radius: 12px;
+    padding: 6px;
     cursor: pointer;
-    border-radius: 9px;
-    padding: 5px 5px 2px 5px;
 }
-
+.bottom-button:hover {
+    filter: brightness(1.08);
+}
+.bottom-button:active {
+    transform: scale(0.98);
+}
+.bottom-button:focus-visible {
+    outline: 2px solid
+        hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 15%));
+    outline-offset: 2px;
+}
 .bottom-button span {
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url("/assets/circle-right.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: center/contain no-repeat url("/assets/circle-right.svg");
 }
-box {
-    display: block;
-}
-text {
-    display: block;
+.draggable {
+    user-select: none;
+    touch-action: none;
 }
