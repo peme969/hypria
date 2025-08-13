@@ -59,7 +59,7 @@ video {
     display: block;
     background:
         linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)),
-        linear-gradient(rgba(105, 201, 189, 0.35), rgba(55, 174, 159, 0.35));
+        linear-gradient(rgb(227 3 202 / 35%), rgba(55, 174, 159, 0.35));
     border: 5px solid rgb(25, 21, 22);
     width: 400px;
     height: 300px;
