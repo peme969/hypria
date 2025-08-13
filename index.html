@@ -15,17 +15,22 @@
         <title>hypria</title>
         <link rel="stylesheet" href="style.css" />
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Mozilla+Headline:wght@200..700&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <style>
         .boxes {
-            display: block;
             background:
                 linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)),
                 linear-gradient(rgb(227 3 202 / 35%), rgba(55, 174, 159, 0.35));
             border: 5px solid rgb(25, 21, 22);
             width: 680px;
             max-width: 96vw;
-            padding: 11px;
+            padding: 11px 11px 21px 11px;
             display: grid;
             grid-template-rows: auto auto auto auto;
             gap: 12px;
@@ -440,11 +445,13 @@
                 const WIND_ICON_BASE = "./";
                 function getWindIcon(speed, isF) {
                     const mph = isF ? Number(speed) : Number(speed) / 1.60934;
-                    if (mph < 3) return "icons8-wind-speed-1-2-50.png";
-                    if (mph < 8) return "icons8-wind-speed-3-7-50.png";
-                    if (mph < 13) return "icons8-wind-speed-8-12-50.png";
-                    if (mph < 18) return "icons8-wind-speed-13-17-50.png";
-                    return "icons8-wind-speed-18-22-50.png";
+                    if (mph < 3) return "/assets/icons8-wind-speed-1-2-50.png";
+                    if (mph < 8) return "/assets/icons8-wind-speed-3-7-50.png";
+                    if (mph < 13)
+                        return "/assets/icons8-wind-speed-8-12-50.png";
+                    if (mph < 18)
+                        return "/assets/icons8-wind-speed-13-17-50.png";
+                    return "/assets/icons8-wind-speed-18-22-50.png";
                 }
                 function aqiInfo(idx) {
                     const label =

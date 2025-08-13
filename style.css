@@ -21,6 +21,11 @@ body {
     padding: 0;
     height: 100%;
     overflow: hidden;
+    font-family: "Mozilla Headline", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
 }
 video {
     position: fixed;
