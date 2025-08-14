@@ -1,0 +1,252 @@
+/*
+ * hypria — Copyright (C) 2025 peme969
+ * Licensed under the Hypria Non-Commercial Public Use License (HNCPUL) 1.0
+ *
+ * You may use, modify, and distribute this software only for non-commercial purposes,
+ * and any modified versions must be publicly distributed with source code.
+ *
+ * NO WARRANTY. See LICENSE for details.
+ */
+:root {
+    --bg: #0b0f19;
+    --panel: #171c28;
+    --text: #e6eaf2;
+    --muted: #9aa3b2;
+    --border: rgba(255, 255, 255, 0.08);
+    --red: #ff4d4f;
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: "Mozilla Headline", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -9999;
+    pointer-events: none;
+}
+.bottom-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #454544;
+    border: 1px solid #8b8484;
+    border-radius: 12px;
+    padding: 6px 6px 2px 6px;
+    cursor: pointer;
+}
+.bottom-button:hover {
+    filter: brightness(1.08);
+}
+.bottom-button:active {
+    transform: scale(0.98);
+}
+.bottom-button:focus-visible {
+    outline: 2px solid
+        hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 15%));
+    outline-offset: 2px;
+}
+.bottom-button span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: center/contain no-repeat url("/assets/circle-right.svg");
+}
+.draggable {
+    user-select: none;
+    touch-action: none;
+}
+.boxes {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)),
+        linear-gradient(rgb(227 3 202 / 35%), rgba(55, 174, 159, 0.35));
+    border: 5px solid rgb(25, 21, 22);
+    width: 680px;
+    max-width: 96vw;
+    padding: 11px 11px 21px 11px;
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    gap: 12px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    height: fit-content;
+}
+.row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.space {
+    justify-content: space-between;
+}
+.title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+.subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+a {
+    color: #86b7ff;
+    text-decoration: none;
+}
+.current {
+    display: block;
+}
+.tempRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.temp {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1;
+}
+.condIcon {
+    width: 48px;
+    height: 48px;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
+}
+.unit-pill {
+    display: inline-flex;
+    border: 1px solid #3a4570;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-left: 6px;
+}
+.unit-pill button {
+    background: transparent;
+    border: none;
+    color: #a9b1c3;
+    padding: 6px 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+.unit-pill button.active {
+    background: #202539;
+    color: #fff;
+}
+.hiLo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #b8bfcd;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+.dot {
+    opacity: 0.6;
+}
+.condLine {
+    margin-top: 2px;
+}
+
+.chipsRow {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+.chipTile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #121724;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px 10px;
+}
+.chipTile img {
+    width: 20px;
+    height: 20px;
+}
+.micro {
+    margin-top: 6px;
+    color: #b8bfcd;
+}
+.tiny {
+    font-size: 0.8rem;
+}
+.micro img {
+    width: 24px;
+    height: 24px;
+    vertical-align: -4px;
+    margin: -3px -3px -3px 0px;
+}
+.alert {
+    background: #121724;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+}
+.alertTop {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--red);
+    font-weight: 700;
+}
+.alertTop .sep {
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--red);
+    display: inline-block;
+    opacity: 0.9;
+}
+.alertSub {
+    margin-top: 6px;
+}
+.alertSub b {
+    font-weight: 800;
+}
+.alertDesc {
+    margin-top: 6px;
+    color: #d7dbe6;
+}
+.clamp2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.forecast {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.day {
+    background: #121724;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+    align-items: center;
+}
+.name {
+    font-weight: 700;
+}
+
+@media (max-width: 730px) {
+    .temp {
+        font-size: 48px;
+    }
+}
