@@ -13,7 +13,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>hypria</title>
-        <link rel="stylesheet" href="style.upd.css" />
+        <link rel="stylesheet" href="style.css" />
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -298,7 +298,7 @@
                 let index = Math.floor(Math.random() * walls.length);
                 document.getElementById("bg-video").src = walls[index];
                 document.getElementById("bg-video").load();
-                applyTheme(mapTheme(url));
+                applyTheme(mapTheme(walls[index]));
             }
         </script>
         <script>
