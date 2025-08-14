@@ -166,6 +166,12 @@
         </button>
 
         <script>
+            window.addEventListener("load", () => {
+                const url =
+                    document.getElementById("bg-video").currentSrc ||
+                    document.getElementById("bg-video").src;
+                if (url) applyTheme(mapTheme(url));
+            });
             // these have comments because of the tutorial of the OG interactJS library docs!
             interact(".draggable").draggable({
                 // enable inertial throwing
@@ -219,7 +225,47 @@
 
             // this function is used later in the resizing and gesture demos
             window.dragMoveListener = dragMoveListener;
-
+            const PALETTES = {
+                forest: { t1: [88, 170, 136], t2: [40, 78, 66], glass: 0.3 },
+                meadow: { t1: [106, 168, 255], t2: [64, 99, 191], glass: 0.26 },
+                nebula: { t1: [170, 94, 255], t2: [69, 44, 120], glass: 0.28 },
+                blackhole: {
+                    t1: [255, 124, 96],
+                    t2: [63, 21, 21],
+                    glass: 0.32,
+                },
+                windows: { t1: [92, 161, 255], t2: [26, 70, 140], glass: 0.24 },
+                earth: { t1: [88, 139, 247], t2: [32, 46, 88], glass: 0.28 },
+                desert: { t1: [227, 165, 76], t2: [84, 55, 26], glass: 0.3 },
+                default: {
+                    t1: [132, 148, 230],
+                    t2: [58, 69, 112],
+                    glass: 0.28,
+                },
+            };
+            function mapTheme(url) {
+                const u = url.toLowerCase();
+                if (u.includes("forest") || u.includes("river"))
+                    return PALETTES.forest;
+                if (u.includes("ghibli") || u.includes("landscape"))
+                    return PALETTES.meadow;
+                if (u.includes("nebula") || u.includes("singularity"))
+                    return PALETTES.nebula;
+                if (u.includes("black") && u.includes("hole"))
+                    return PALETTES.blackhole;
+                if (u.includes("windows") || u.includes("logo"))
+                    return PALETTES.windows;
+                if (u.includes("earth") || u.includes("orbit"))
+                    return PALETTES.earth;
+                if (u.includes("desert")) return PALETTES.desert;
+                return PALETTES.default;
+            }
+            function applyTheme(p) {
+                const r = document.documentElement.style;
+                r.setProperty("--tint-1", `${p.t1[0]} ${p.t1[1]} ${p.t1[2]}`);
+                r.setProperty("--tint-2", `${p.t2[0]} ${p.t2[1]} ${p.t2[2]}`);
+                r.setProperty("--glass-a", String(p.glass ?? 0.28));
+            }
             var walls = [
                 "https://cdn.donmai.us/original/be/d0/__original_drawn_by_hisachan55cute__bed01509fe09fdaabe37b5df707fcacc.mp4",
                 "https://cdn.donmai.us/original/c3/43/__original_drawn_by_hisachan55cute__c3435fc2481d6434c8b24415fd12e87b.mp4",
@@ -252,6 +298,7 @@
                 let index = Math.floor(Math.random() * walls.length);
                 document.getElementById("bg-video").src = walls[index];
                 document.getElementById("bg-video").load();
+                applyTheme(mapTheme(url));
             }
         </script>
         <script>

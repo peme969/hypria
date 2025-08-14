@@ -14,6 +14,13 @@
     --muted: #9aa3b2;
     --border: rgba(255, 255, 255, 0.08);
     --red: #ff4d4f;
+    --tint-1: 106 168 255;
+    --tint-2: 64 99 191;
+    --glass-a: 0.28;
+    --panel: #171c28;
+    --text: #e6eaf2;
+    --muted: #9aa3b2;
+    --border: rgba(255, 255, 255, 0.08);
 }
 html,
 body {
@@ -55,8 +62,7 @@ video {
     transform: scale(0.98);
 }
 .bottom-button:focus-visible {
-    outline: 2px solid
-        hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 15%));
+    outline: 2px solid rgb(var(--tint-1));
     outline-offset: 2px;
 }
 .bottom-button span {
@@ -71,9 +77,12 @@ video {
 }
 .boxes {
     background:
-        linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)),
-        linear-gradient(rgb(227 3 202 / 35%), rgba(55, 174, 159, 0.35));
-    border: 5px solid rgb(25, 21, 22);
+        linear-gradient(
+            rgba(0, 0, 0, var(--glass-a)),
+            rgba(0, 0, 0, var(--glass-a))
+        ),
+        linear-gradient(rgb(var(--tint-1) / 0.35), rgb(var(--tint-2) / 0.35));
+    border: 1px solid var(--border);
     width: 680px;
     max-width: 96vw;
     padding: 11px 11px 21px 11px;
@@ -81,8 +90,9 @@ video {
     grid-template-rows: auto auto auto auto;
     gap: 12px;
     border-radius: 16px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(120%);
     height: fit-content;
+    box-shadow: 0 18px 40px rgb(var(--tint-1) / 0.25);
 }
 .row {
     display: flex;
@@ -102,7 +112,7 @@ video {
     font-size: 0.95rem;
 }
 a {
-    color: #86b7ff;
+    color: rgb(var(--tint-1));
     text-decoration: none;
 }
 .current {
@@ -125,7 +135,7 @@ a {
 }
 .unit-pill {
     display: inline-flex;
-    border: 1px solid #3a4570;
+    border: 1px solid rgb(var(--tint-1) / 0.45);
     border-radius: 999px;
     overflow: hidden;
     margin-left: 6px;
@@ -140,7 +150,7 @@ a {
     cursor: pointer;
 }
 .unit-pill button.active {
-    background: #202539;
+    background: rgb(var(--tint-1) / 0.22);
     color: #fff;
 }
 .hiLo {
