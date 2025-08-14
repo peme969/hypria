@@ -26,6 +26,7 @@ body {
     font-weight: 100;
     font-style: normal;
     font-variation-settings: "wdth" 100;
+    color: var(--text);
 }
 video {
     position: fixed;
