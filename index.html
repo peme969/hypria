@@ -13,7 +13,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>hypria</title>
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="styles.css" />
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,7 +32,8 @@
             />
             Your browser does not support the video tag.
         </video>
-        <!-- haha i like custom tags-->
+        <!-- haha i like custom tags (moi invention worth of mention)-->
+        <status-bar> </status-bar>
         <box class="draggable boxes">
             <div class="row space">
                 <div>
@@ -48,10 +49,7 @@
                         >WeatherAPI</a
                     >
                     ·
-                    <a
-                        href="https://wttr.in/:help"
-                        target="_blank"
-                        rel="noreferrer"
+                    <a href="https://wttr.in/" target="_blank" rel="noreferrer"
                         >wttr.in</a
                     >
                 </div>
@@ -304,7 +302,7 @@
         <script>
             (async () => {
                 const RAW_Q = prompt(
-                    "Enter your location (city, long/lat, state",
+                    "Enter your location (city, long/lat[recommended])",
                 );
                 const Q = encodeURIComponent(RAW_Q);
                 const state = { unit: "F", data: null };
