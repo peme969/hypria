@@ -13,7 +13,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>hypria</title>
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="style.css" />
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,129 +35,151 @@
         <!-- haha i like custom tags (moi invention worth of mention)-->
         <status-bar> </status-bar>
         <box class="draggable boxes">
-            <div class="row space">
-                <div>
-                    <div class="title" id="place">Loading…</div>
-                    <div class="subtitle" id="subtitle">—</div>
-                </div>
-                <div class="tiny subtitle">
-                    Powered by
-                    <a
-                        href="https://www.weatherapi.com/"
-                        target="_blank"
-                        rel="noreferrer"
-                        >WeatherAPI</a
-                    >
-                    ·
-                    <a href="https://wttr.in/" target="_blank" rel="noreferrer"
-                        >wttr.in</a
-                    >
-                </div>
+            <div>
+                <button class="minimize-btn-weather">
+                    <span></span>
+                </button>
+                <button class="maximize-btn-weather">
+                    <span></span>
+                </button>
             </div>
-            <div class="current">
-                <div class="tempRow">
-                    <img id="condIcon" class="condIcon" alt="condition icon" />
-                    <div class="temp" id="temp">--°</div>
-                    <div class="unit-pill" id="unitToggle" aria-label="Units">
-                        <button data-unit="F" class="active">F</button>
-                        <button data-unit="C">C</button>
+            <div class="topclass">
+                <div class="row space">
+                    <div>
+                        <div class="title" id="place">Loading…</div>
+                        <div class="subtitle" id="subtitle">—</div>
+                    </div>
+                    <div class="tiny subtitle">
+                        Powered by
+                        <a
+                            href="https://www.weatherapi.com/"
+                            target="_blank"
+                            rel="noreferrer"
+                            >WeatherAPI</a
+                        >
+                        ·
+                        <a
+                            href="https://wttr.in/"
+                            target="_blank"
+                            rel="noreferrer"
+                            >wttr.in</a
+                        >
                     </div>
                 </div>
-                <div class="hiLo">
-                    <span>High <span id="hi">--</span>°</span
-                    ><span class="dot">•</span>
-                    <span>Low <span id="lo">--</span>°</span>
-                </div>
-                <div class="subtitle condLine" id="cond">—</div>
-                <div class="chipsRow">
-                    <div class="chipTile">
+                <div class="current">
+                    <div class="tempRow">
                         <img
-                            src="https://img.icons8.com/fluency/48/sunrise.png"
-                            alt=""
-                        /><span id="sunrise">--:--</span>
+                            id="condIcon"
+                            class="condIcon"
+                            alt="condition icon"
+                        />
+                        <div class="temp" id="temp">--°</div>
+                        <div
+                            class="unit-pill"
+                            id="unitToggle"
+                            aria-label="Units"
+                        >
+                            <button data-unit="F" class="active">F</button>
+                            <button data-unit="C">C</button>
+                        </div>
                     </div>
-                    <div class="chipTile">
-                        <img
-                            src="https://img.icons8.com/fluency/48/sunset.png"
-                            alt=""
-                        /><span id="sunset">--:--</span>
+                    <div class="hiLo">
+                        <span>High <span id="hi">--</span>°</span
+                        ><span class="dot">•</span>
+                        <span>Low <span id="lo">--</span>°</span>
                     </div>
-                    <div class="chipTile" id="aqiChip" title="">
-                        <span id="aqiShort">AQI —</span>
+                    <div class="subtitle condLine" id="cond">—</div>
+                    <div class="chipsRow">
+                        <div class="chipTile">
+                            <img
+                                src="https://img.icons8.com/fluency/48/sunrise.png"
+                                alt=""
+                            /><span id="sunrise">--:--</span>
+                        </div>
+                        <div class="chipTile">
+                            <img
+                                src="https://img.icons8.com/fluency/48/sunset.png"
+                                alt=""
+                            /><span id="sunset">--:--</span>
+                        </div>
+                        <div class="chipTile" id="aqiChip" title="">
+                            <span id="aqiShort">AQI —</span>
+                        </div>
                     </div>
-                </div>
-                <div class="micro tiny" id="microStats">
-                    Humidity —% • Precip —% • —
+                    <div class="micro tiny" id="microStats">
+                        Humidity —% • Precip —% • —
+                    </div>
                 </div>
             </div>
-
-            <!-- ALERTS -->
-            <div class="alert" id="alert" hidden>
-                <div class="alertTop">
-                    <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
-                    >
-                        <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="var(--red)"
-                            stroke-width="2"
-                        />
-                        <rect
-                            x="11"
-                            y="10"
-                            width="2"
-                            height="7"
-                            fill="var(--red)"
-                        />
-                        <rect
-                            x="11"
-                            y="6.5"
-                            width="2"
-                            height="2"
-                            fill="var(--red)"
-                        />
-                    </svg>
-                    <span>Extreme weather advisory</span>
-                    <span class="sep"></span>
-                    <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
-                    >
-                        <circle
-                            cx="12"
-                            cy="12"
-                            r="9"
-                            stroke="var(--red)"
-                            stroke-width="2"
-                        />
-                        <path
-                            d="M12 7v5l3 2"
-                            stroke="var(--red)"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-                    <span id="alertAgo">—</span>
-                    <span class="sep"></span>
-                    <span id="alertWhen" style="color: #ff9b9c"></span>
+            <div class="bottomclass">
+                <!-- ALERTS -->
+                <div class="alert" id="alert" hidden>
+                    <div class="alertTop">
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="var(--red)"
+                                stroke-width="2"
+                            />
+                            <rect
+                                x="11"
+                                y="10"
+                                width="2"
+                                height="7"
+                                fill="var(--red)"
+                            />
+                            <rect
+                                x="11"
+                                y="6.5"
+                                width="2"
+                                height="2"
+                                fill="var(--red)"
+                            />
+                        </svg>
+                        <span>Extreme weather advisory</span>
+                        <span class="sep"></span>
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="9"
+                                stroke="var(--red)"
+                                stroke-width="2"
+                            />
+                            <path
+                                d="M12 7v5l3 2"
+                                stroke="var(--red)"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                        <span id="alertAgo">—</span>
+                        <span class="sep"></span>
+                        <span id="alertWhen" style="color: #ff9b9c"></span>
+                    </div>
+                    <div class="alertSub">
+                        <b id="alertEvent">—</b> <span class="dot">•</span>
+                        <span id="alertSender">—</span>
+                    </div>
+                    <div class="alertDesc clamp2" id="alertDesc"></div>
                 </div>
-                <div class="alertSub">
-                    <b id="alertEvent">—</b> <span class="dot">•</span>
-                    <span id="alertSender">—</span>
-                </div>
-                <div class="alertDesc clamp2" id="alertDesc"></div>
+                <div class="forecast" id="forecast"></div>
             </div>
-            <div class="forecast" id="forecast"></div>
         </box>
         <button class="bottom-button" onclick="switchWall()">
             <span></span>
