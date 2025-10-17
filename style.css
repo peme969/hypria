@@ -302,15 +302,25 @@ status-bar .weather-icon img {
     width: 100%;
     height: 100%;
 }
-minimize-btn-weather {
-    width: 24px;
-    height: 24px;
-    vertical-align: -4px;
-    margin: -3px -3px -3px 0px;
+.minimize-btn-weather {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
-minimize-btn-weather span {
-    width: 100%;
-    height: 100%;
+
+.minimize-btn-weather span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: center / contain no-repeat
+        url("https://raw.githubusercontent.com/peme969/macos-traffic-light-buttons-as-SVG/75b270fae6010846ea58b943f4e86293d48e45b5/minimize-hover.svg");
+    transition: background 0.15s ease-in-out;
+}
+
+.minimize-btn-weather:active span {
+    background: center / contain no-repeat
+        url("https://raw.githubusercontent.com/peme969/macos-traffic-light-buttons-as-SVG/75b270fae6010846ea58b943f4e86293d48e45b5/minimize-press.svg");
 }
 maximize-btn-weather {
     width: 24px;
