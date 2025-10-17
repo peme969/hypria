@@ -315,7 +315,6 @@ status-bar .weather-icon img {
     height: 30px;
     background: center / contain no-repeat
         url("https://raw.githubusercontent.com/peme969/macos-traffic-light-buttons-as-SVG/75b270fae6010846ea58b943f4e86293d48e45b5/minimize-hover.svg");
-    transition: background 0.15s ease-in-out;
 }
 
 .minimize-btn-weather:active span {
